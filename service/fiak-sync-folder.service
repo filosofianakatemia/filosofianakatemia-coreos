@@ -1,7 +1,9 @@
 [Unit]
 Description=Filosofian Akatemia Sync Folder Service
+After=etcd2.service
 After=docker.service
 After=flanneld.service
+Requires=etcd2.service
 Requires=docker.service
 Requires=flanneld.service
 
