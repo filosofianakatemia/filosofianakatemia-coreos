@@ -1,0 +1,22 @@
+[Unit]
+Description=Filosofian Akatemia Site Static Files
+After=docker.service
+After=flanneld.service
+Requires=docker.service
+Requires=flanneld.service
+Before=nginx.service
+
+[Service]
+TimeoutStartSec=0
+Type=oneshot
+RemainAfterExit=true
+ExecStartPre=-/usr/bin/docker rm fiak-site-static
+ExecStartPre=-/usr/bin/flock /var/lock /usr/bin/timeout 5m /usr/bin/docker pull fiak/site-static:latest
+ExecStart=/usr/bin/docker run --name fiak-site-static --volumes-from DATA-FRONTEND fiak/site-static:latest
+
+[Install]
+WantedBy=multi-user.target
+
+[X-Fleet]
+Global=true
+MachineMetadata=role=node
