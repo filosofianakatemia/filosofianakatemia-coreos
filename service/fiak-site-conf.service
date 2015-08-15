@@ -14,7 +14,7 @@ Type=oneshot
 RemainAfterExit=true
 ExecStartPre=-/usr/bin/docker rm fiak-site-conf
 ExecStartPre=-/usr/bin/flock /var/lock /usr/bin/timeout 5m /usr/bin/docker pull fiak/site-conf:latest
-ExecStart=/usr/bin/docker create --name fiak-site-conf fiak/site-conf:latest
+ExecStart=/usr/bin/docker run --name fiak-site-conf --volumes-from site-conf --volumes-from nginx-conf fiak/site-conf:latest
 
 [Install]
 WantedBy=multi-user.target
