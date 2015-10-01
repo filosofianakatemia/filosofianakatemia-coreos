@@ -7,8 +7,10 @@ Requires=docker.service
 Requires=flanneld.service
 Requires=site-conf.service
 Before=confd.service
+RequiredBy=confd.service
 
 [Service]
+Restart=on-failure
 TimeoutStartSec=0
 Type=oneshot
 RemainAfterExit=true
