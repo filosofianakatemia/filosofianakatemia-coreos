@@ -3,9 +3,11 @@ Description=Filosofian Akatemia Site Configuration Templates
 After=docker.service
 After=flanneld.service
 After=site-conf.service
+After=nginx-conf.service
 Requires=docker.service
 Requires=flanneld.service
 Requires=site-conf.service
+Requires=nginx-conf.service
 Before=confd.service
 
 [Service]
