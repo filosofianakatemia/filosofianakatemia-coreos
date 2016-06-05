@@ -3,9 +3,11 @@ Description=Filosofian Akatemia Site
 After=docker.service
 After=flanneld.service
 After=confd.service
+After=mariadb.service
 Requires=docker.service
 Requires=flanneld.service
 Requires=confd.service
+Requires=mariadb.service
 
 [Service]
 Restart=on-failure
@@ -14,7 +16,7 @@ ExecStartPre=-/usr/bin/docker rm fiak-site
 ExecStartPre=-/usr/bin/flock /var/lock /usr/bin/timeout 5m /usr/bin/docker pull fiak/site:latest
 ExecStart=/usr/bin/docker run --name fiak-site \
 --volumes-from fiak-site-conf \
---link backend:backend \
+--link backend:backend --link mariadb:mariadb \
 fiak/site:latest
 
 [Install]
